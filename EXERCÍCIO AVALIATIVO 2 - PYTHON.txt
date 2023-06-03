@@ -1,0 +1,347 @@
+EXERCÍCIO AVALIATIVO 2 - PYTHON
+
+1.
+
+def cadastro():
+	nome = input("Digite o nome: ")
+	idade = int(input("Digite a idade: "))
+	cpf = input("Digite o cpf: ")
+    
+	pessoa = {'nome' : nome, 'idade' : idade, 'cpf' : cpf}
+	return pessoa
+    
+def main():
+	maior = []
+	menor = []
+    
+	num = int(input("Digite quantas pessoas deseja cadastrar: "))
+    
+	for _ in range(num):
+    	pessoa = cadastro()
+    	maior.append(pessoa)
+   	 
+	for pessoa in maior:
+    	if pessoa['idade'] < 18:
+        	menor.append(pessoa)
+       	 
+	for pessoa in menor:
+    	maior.remove(pessoa)
+   	 
+	for pessoa in maior:
+    	print(f"MAIOR:  Nome: {pessoa['nome']}, Idade: {pessoa['idade']}, CPF: {pessoa['cpf']}")
+   	 
+	for pessoa in menor:
+    	print(f"MENOR:  Nome: {pessoa['nome']}, Idade: {pessoa['idade']}, CPF: {pessoa['cpf']}")
+
+main()
+
+2.
+
+def backup(dic1, dic2):
+	dic2.update(dic1)  
+	dic1.clear()  
+
+def insere(dic1, dic2, lugar, temperatura):
+	dic1[lugar] = temperatura  
+
+	if len(dic1) >= 5:
+    	print("Dados do dicionário principal:")
+    	for lugar, temperatura in dic1.items():
+        	print(f"{lugar}: {temperatura}°C")
+    	backup(dic1, dic2)
+
+def main():
+	dic1 = {}
+	dic2 = {}
+
+	while True:
+    	lugar = input("Digite o nome do lugar: ")
+    	temperatura = float(input("Digite a temperatura em graus Celsius: "))
+    	insere(dic1, dic2, lugar, temperatura)
+
+    	continuar = input("Deseja continuar? (S/N) ")
+    	if continuar.lower() != 's':
+        	break
+
+	print("Dados finais do dicionário principal:")
+	for lugar, temperatura in dic1.items():
+    	print(f"{lugar}: {temperatura}°C")
+
+	print("Dados do dicionário de backup:")
+	for lugar, temperatura in dic2.items():
+    	print(f"{lugar}: {temperatura}°C")
+
+main()
+
+3.
+
+class Automovel:
+    
+	def __init__(self, fabricante, modelo):
+   	 
+    	self.fabricante = fabricante
+   	 
+    	self.modelo = modelo
+
+	def acelerar(self):
+   	 
+    	raise NotImplementedError("Método acelerar não implementado")
+
+	def frear(self):
+   	 
+    	raise NotImplementedError("Método frear não implementado")
+
+
+class Carro(Automovel):
+    
+	def __init__(self, fabricante, modelo, portas):
+   	 
+    	super().__init__(fabricante, modelo)
+   	 
+    	self.portas = portas
+
+	def acelerar(self):
+   	 
+    	print("O carro está acelerando.")
+
+	def frear(self):
+   	 
+    	print("O carro está freando.")
+
+
+class Caminhao(Automovel):
+    
+	def __init__(self, fabricante, modelo, carga):
+   	 
+    	super().__init__(fabricante, modelo)
+   	 
+    	self.carga = carga
+
+	def acelerar(self):
+   	 
+    	print("O caminhão está acelerando.")
+
+	def frear(self):
+   	 
+    	print("O caminhão está freando.")
+
+
+class Caminhonete(Automovel):
+    
+	def __init__(self, fabricante, modelo, tracao_4x4):
+   	 
+    	super().__init__(fabricante, modelo)
+   	 
+    	self.tracao_4x4 = tracao_4x4
+
+	def acelerar(self):
+   	 
+    	print("A caminhonete está acelerando.")
+
+	def frear(self):
+   	 
+    	print("A caminhonete está freando.")
+
+
+class Moto(Automovel):
+    
+	def __init__(self, fabricante, modelo, cilindradas):
+   	 
+    	super().__init__(fabricante, modelo)
+   	 
+    	self.cilindradas = cilindradas
+
+	def acelerar(self):
+   	 
+    	print("A moto está acelerando.")
+
+	def frear(self):
+   	 
+    	print("A moto está freando.")
+
+
+def main():
+    
+	carro = Carro("Volkswagen", "Gol", 4)
+    
+	caminhao = Caminhao("Volvo", "FH", 10000)
+    
+	caminhonete = Caminhonete("Volkswagen", "Amarok", True)
+    
+	moto = Moto("Honda", "CBR1000", 1000)
+
+	veiculos = [carro, caminhao, caminhonete, moto]
+
+	for veiculo in veiculos:
+   	 
+    	print(f"Fabricante: {veiculo.fabricante}")
+   	 
+    	print(f"Modelo: {veiculo.modelo}")
+   	 
+    	veiculo.acelerar()
+   	 
+    	veiculo.frear()
+
+
+main()
+
+4.
+
+class Produto:
+    
+	def __init__(self, nome, preco):
+   	 
+    	self.nome = nome
+   	 
+    	self.preco = preco
+
+	def info(self):
+   	 
+    	print(f"Nome: {self.nome}")
+   	 
+    	print(f"Preço: R${self.preco:.2f}")
+
+	def calcular_desconto(self, percentual):
+   	 
+    	desconto = self.preco * percentual / 100
+   	 
+    	preco_com_desconto = self.preco - desconto
+   	 
+    	print(f"Preço com desconto: R${preco_com_desconto:.2f}")
+
+
+class Livro(Produto):
+    
+	def __init__(self, nome, preco, autor):
+   	 
+    	super().__init__(nome, preco)
+   	 
+    	self.autor = autor
+
+	def info(self):
+   	 
+    	super().info()
+   	 
+    	print(f"Autor: {self.autor}")
+
+
+class CD(Produto):
+    
+	def __init__(self, nome, preco, artista):
+   	 
+    	super().__init__(nome, preco)
+   	 
+    	self.artista = artista
+
+	def info(self):
+   	 
+    	super().info()
+   	 
+    	print(f"Artista: {self.artista}")
+
+
+class DVD(Produto):
+    
+	def __init__(self, nome, preco, diretor):
+   	 
+    	super().__init__(nome, preco)
+   	 
+    	self.diretor = diretor
+
+	def info(self):
+   	 
+    	super().info()
+   	 
+    	print(f"Diretor: {self.diretor}")
+
+
+def exibir_menu():
+    
+	print("Escolha uma opção:")
+    
+	print("1. Criar um livro")
+    
+	print("2. Criar um CD")
+    
+	print("3. Criar um DVD")
+    
+	print("0. Sair")
+
+
+def criar_livro():
+    
+	nome = input("Digite o nome do livro: ")
+    
+	preco = float(input("Digite o preço do livro: "))
+    
+	autor = input("Digite o nome do autor: ")
+    
+	livro = Livro(nome, preco, autor)
+    
+	return livro
+
+
+def criar_cd():
+    
+	nome = input("Digite o nome do CD: ")
+    
+	preco = float(input("Digite o preço do CD: "))
+    
+	artista = input("Digite o nome do artista: ")
+    
+	cd = CD(nome, preco, artista)
+    
+	return cd
+
+
+def criar_dvd():
+    
+	nome = input("Digite o nome do DVD: ")
+    
+	preco = float(input("Digite o preço do DVD: "))
+    
+	diretor = input("Digite o nome do diretor: ")
+    
+	dvd = DVD(nome, preco, diretor)
+    
+	return dvd
+
+
+while True:
+    
+	exibir_menu()
+    
+	opcao = input("Opção selecionada: ")
+
+	if opcao == "1":
+   	 
+    	livro = criar_livro()
+   	 
+    	livro.info()
+   	 
+    	livro.calcular_desconto(10)
+   	 
+	elif opcao == "2":
+   	 
+    	cd = criar_cd()
+   	 
+    	cd.info()
+   	 
+    	cd.calcular_desconto(15)
+   	 
+	elif opcao == "3":
+   	 
+    	dvd = criar_dvd()
+   	 
+    	dvd.info()
+   	 
+    	dvd.calcular_desconto(20)
+   	 
+	elif opcao == "0":
+   	 
+    	break
+    
+	else:
+   	 
+    	print("Opção inválida. Por favor, tente novamente.")
+
